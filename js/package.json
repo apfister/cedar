@@ -1,6 +1,6 @@
 {
   "name": "vega",
-  "version": "2.0.6",
+  "version": "2.3.1",
   "description": "The Vega visualization grammar.",
   "keywords": [
     "vega",
@@ -34,12 +34,13 @@
   "dependencies": {
     "d3": "^3.5.6",
     "d3-geo-projection": "^0.2.15",
-    "datalib": "^1.3.2",
+    "d3-cloud": "^1.2.0",
+    "datalib": "^1.4.6",
     "topojson": "^1.6.19",
-    "vega-dataflow": "^1.0.4",
-    "vega-expression": "^1.0.2",
+    "vega-dataflow": "^1.2.5",
+    "vega-expression": "^1.0.3",
     "vega-logging": "^1.0.1",
-    "vega-scenegraph": "^1.0.5",
+    "vega-scenegraph": "^1.0.11",
     "yargs": "^3.15.0"
   },
   "devDependencies": {
@@ -94,14 +95,14 @@
     "canvas": "global:canvas",
     "topojson": "global:topojson"
   },
-  "gitHead": "04a33d836d87fbbedb1ccb1e6dc716afb40f25a3",
+  "gitHead": "fc59806100210d2530460011219caae73ab144a8",
   "bugs": {
     "url": "https://github.com/vega/vega/issues"
   },
   "homepage": "https://github.com/vega/vega#readme",
-  "_id": "vega@2.0.6",
-  "_shasum": "b68d2db7cf1c97be29ff56b036fb54bc2c237f19",
-  "_from": "vega@2.0.6",
+  "_id": "vega@2.3.1",
+  "_shasum": "12e6757af2cba4843a6bbd91ddb9d482969c78dd",
+  "_from": "vega@>=2.3.1 <2.4.0",
   "_npmVersion": "2.10.1",
   "_nodeVersion": "0.12.4",
   "_npmUser": {
@@ -109,8 +110,8 @@
     "email": "arvindsatya1@gmail.com"
   },
   "dist": {
-    "shasum": "b68d2db7cf1c97be29ff56b036fb54bc2c237f19",
-    "tarball": "http://registry.npmjs.org/vega/-/vega-2.0.6.tgz"
+    "shasum": "12e6757af2cba4843a6bbd91ddb9d482969c78dd",
+    "tarball": "http://registry.npmjs.org/vega/-/vega-2.3.1.tgz"
   },
   "maintainers": [
     {
@@ -123,5 +124,5 @@
     }
   ],
   "directories": {},
-  "_resolved": "https://registry.npmjs.org/vega/-/vega-2.0.6.tgz"
+  "_resolved": "https://registry.npmjs.org/vega/-/vega-2.3.1.tgz"
 }
