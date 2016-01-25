@@ -1,23 +1,69 @@
 {
-  "name": "vega",
-  "version": "2.3.1",
-  "description": "The Vega visualization grammar.",
-  "keywords": [
-    "vega",
-    "visualization",
-    "interaction",
-    "dataflow",
-    "grammar",
-    "data",
-    "d3"
+  "_args": [
+    [
+      "vega@~2.0.1",
+      "/Users/adam/dev/cedar"
+    ]
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/vega/vega.git"
+  "_from": "vega@>=2.0.1 <2.1.0",
+  "_id": "vega@2.0.6",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/vega",
+  "_nodeVersion": "0.12.4",
+  "_npmUser": {
+    "email": "arvindsatya1@gmail.com",
+    "name": "arvindsatya1"
   },
+  "_npmVersion": "2.10.1",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "vega",
+    "raw": "vega@~2.0.1",
+    "rawSpec": "~2.0.1",
+    "scope": null,
+    "spec": ">=2.0.1 <2.1.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/vega/-/vega-2.0.6.tgz",
+  "_shasum": "b68d2db7cf1c97be29ff56b036fb54bc2c237f19",
+  "_shrinkwrap": null,
+  "_spec": "vega@~2.0.1",
+  "_where": "/Users/adam/dev/cedar",
   "author": {
     "name": "Arvind Satyanarayan",
     "url": "http://arvindsatya.com"
+  },
+  "bin": {
+    "vg2png": "./bin/vg2png",
+    "vg2svg": "./bin/vg2svg"
+  },
+  "browser": {
+    "buffer": false,
+    "canvas": false,
+    "fs": false,
+    "http": false,
+    "request": false,
+    "sync-request": false,
+    "url": false
+  },
+  "browserify": {
+    "transform": [
+      "./scripts/strip-schema",
+      "browserify-shim",
+      "browserify-versionify"
+    ]
+  },
+  "browserify-shim": {
+    "canvas": "global:canvas",
+    "d3": "global:d3",
+    "topojson": "global:topojson"
+  },
+  "bugs": {
+    "url": "https://github.com/vega/vega/issues"
   },
   "contributors": [
     {
@@ -25,24 +71,18 @@
       "url": "http://idl.cs.washington.edu"
     }
   ],
-  "license": "BSD-3-Clause",
-  "main": "index.js",
-  "bin": {
-    "vg2png": "./bin/vg2png",
-    "vg2svg": "./bin/vg2svg"
-  },
   "dependencies": {
     "d3": "^3.5.6",
     "d3-geo-projection": "^0.2.15",
-    "d3-cloud": "^1.2.0",
-    "datalib": "^1.4.6",
+    "datalib": "^1.3.2",
     "topojson": "^1.6.19",
-    "vega-dataflow": "^1.2.5",
-    "vega-expression": "^1.0.3",
+    "vega-dataflow": "^1.0.4",
+    "vega-expression": "^1.0.2",
     "vega-logging": "^1.0.1",
-    "vega-scenegraph": "^1.0.11",
+    "vega-scenegraph": "^1.0.5",
     "yargs": "^3.15.0"
   },
+  "description": "The Vega visualization grammar.",
   "devDependencies": {
     "browserify": "^10.2.6",
     "browserify-shim": "^3.8.9",
@@ -63,56 +103,24 @@
     "xmldom": "^0.1.19",
     "xpath": "^0.0.9"
   },
-  "scripts": {
-    "deploy": "npm run lint && npm run test && scripts/deploy.sh",
-    "lint": "jshint src/",
-    "test": "mocha --timeout 30000 --recursive test/",
-    "cover": "istanbul cover _mocha -- --timeout 30000 --recursive test/",
-    "pegjs": "pegjs src/parse/events.pegjs",
-    "build": "npm run pegjs && browserify index.js -d -s vg | exorcist vega.js.map > vega.js",
-    "postbuild": "uglifyjs vega.js -cm > vega.min.js",
-    "schema": "node scripts/schema.js > vega-schema.json",
-    "watch": "watchify index.js -v -d -s vg -o 'exorcist vega.js.map > vega.js'"
-  },
-  "browser": {
-    "buffer": false,
-    "canvas": false,
-    "fs": false,
-    "http": false,
-    "request": false,
-    "sync-request": false,
-    "url": false
-  },
-  "browserify": {
-    "transform": [
-      "./scripts/strip-schema",
-      "browserify-shim",
-      "browserify-versionify"
-    ]
-  },
-  "browserify-shim": {
-    "d3": "global:d3",
-    "canvas": "global:canvas",
-    "topojson": "global:topojson"
-  },
-  "gitHead": "fc59806100210d2530460011219caae73ab144a8",
-  "bugs": {
-    "url": "https://github.com/vega/vega/issues"
-  },
-  "homepage": "https://github.com/vega/vega#readme",
-  "_id": "vega@2.3.1",
-  "_shasum": "12e6757af2cba4843a6bbd91ddb9d482969c78dd",
-  "_from": "vega@>=2.3.1 <2.4.0",
-  "_npmVersion": "2.10.1",
-  "_nodeVersion": "0.12.4",
-  "_npmUser": {
-    "name": "arvindsatya1",
-    "email": "arvindsatya1@gmail.com"
-  },
+  "directories": {},
   "dist": {
-    "shasum": "12e6757af2cba4843a6bbd91ddb9d482969c78dd",
-    "tarball": "http://registry.npmjs.org/vega/-/vega-2.3.1.tgz"
+    "shasum": "b68d2db7cf1c97be29ff56b036fb54bc2c237f19",
+    "tarball": "http://registry.npmjs.org/vega/-/vega-2.0.6.tgz"
   },
+  "gitHead": "04a33d836d87fbbedb1ccb1e6dc716afb40f25a3",
+  "homepage": "https://github.com/vega/vega#readme",
+  "keywords": [
+    "d3",
+    "data",
+    "dataflow",
+    "grammar",
+    "interaction",
+    "vega",
+    "visualization"
+  ],
+  "license": "BSD-3-Clause",
+  "main": "index.js",
   "maintainers": [
     {
       "name": "jheer",
@@ -123,6 +131,23 @@
       "email": "arvindsatya1@gmail.com"
     }
   ],
-  "directories": {},
-  "_resolved": "https://registry.npmjs.org/vega/-/vega-2.3.1.tgz"
+  "name": "vega",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/vega/vega.git"
+  },
+  "scripts": {
+    "build": "npm run pegjs && browserify index.js -d -s vg | exorcist vega.js.map > vega.js",
+    "cover": "istanbul cover _mocha -- --timeout 30000 --recursive test/",
+    "deploy": "npm run lint && npm run test && scripts/deploy.sh",
+    "lint": "jshint src/",
+    "pegjs": "pegjs src/parse/events.pegjs",
+    "postbuild": "uglifyjs vega.js -cm > vega.min.js",
+    "schema": "node scripts/schema.js > vega-schema.json",
+    "test": "mocha --timeout 30000 --recursive test/",
+    "watch": "watchify index.js -v -d -s vg -o 'exorcist vega.js.map > vega.js'"
+  },
+  "version": "2.0.6"
 }
