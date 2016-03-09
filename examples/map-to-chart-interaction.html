@@ -119,8 +119,10 @@
       <li><a href="../../../cedar/examples/simple-pie.html">Pie Chart</a></li>
       <li><a href="../../../cedar/examples/multiple.html">Multiple Charts</a></li>
       <li><a href="../../../cedar/examples/sparkline.html">Sparkline</a></li>
+      <li><a href="../../../cedar/examples/ranking-bar.html">Ranking Bar</a></li>
       <li><a href="../../../cedar/examples/time.html">Timeline</a></li>
       <li><a href="../../../cedar/examples/time-dots.html">Time facets</a></li>
+      <li><a href="../../../cedar/examples/map.html">Map Chart</a></li>
     </ul>
   </nav>
 
@@ -189,8 +191,8 @@
 
 <h1>Map to Chart Interaction</h1>
 
+<div id="chart" style="height: 300px"></div>
 <div id="map"></div>
-<div id="chart"></div>
 
 
 
@@ -250,6 +252,7 @@
         }]      
       },
       <span class="string">"mappings"</span>:{
+        <span class="string">"sort"</span>: <span class="string">"Number_of_SUM DESC"</span>,
         <span class="string">"x"</span>: {<span class="string">"field"</span>:<span class="string">"Zip"</span>,<span class="string">"label"</span>:<span class="string">"ZIP Code"</span>},
         <span class="string">"y"</span>: {<span class="string">"field"</span>:<span class="string">"Number_of_SUM"</span>,<span class="string">"label"</span>:<span class="string">"Total Students"</span>}
       }
@@ -374,6 +377,7 @@
         }]      
       },
       "mappings":{
+        "sort": "Number_of_SUM DESC",
         "x": {"field":"Zip","label":"ZIP Code"},
         "y": {"field":"Number_of_SUM","label":"Total Students"}
       }

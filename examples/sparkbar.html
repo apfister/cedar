@@ -8,7 +8,7 @@
   <meta charset="utf-8">
 
   
-    <title>Override Default Chart Style | Esri Cedar</title>
+    <title>Sparkbar | Esri Cedar</title>
   
 
   
@@ -160,97 +160,98 @@
 
 	</div>	
 	<div class="col-lg-9">
-   	  <h2 class="page-header">Override Default Chart Style</h2>
+   	  <h2 class="page-header">Sparkbar</h2>
 	  
 
-<div class="row">
-  <div class="col-lg-8" >
-    <span>Common bar chart style overrides.</span>
-    
-    <h5>Override default x-label title placement (i.e. to account for long labels). Default 40px.</h5>
-    <pre><code>  chart.override = {
-    &quot;axes&quot;: [
-      {
-        &quot;titleOffset&quot;: 200
+<style type="text/css">
+	.cedar-spark .vega { display: inline; padding: 0; margin: 0;}
+	#pop-dc .mark-line path { stroke: rgb(0,200,0) !important ;}
+</style>
+
+<h2>Example</h2>
+
+<p style="border: 1px solid #888; padding: 30px; margin: 20px">The population of DC <span id="pop-dc" class="cedar-spark"></span> has increased over the years, while Baltimore <span id="pop-bm" class="cedar-spark"></span> has been declining.</p>
+
+<h2>Code</h2>
+<pre class="prettyprint">
+&lt;p&gt;The population of DC &lt;span id=&quot;pop-dc&quot; class=&quot;cedar-spark&quot;&gt;&lt;/span&gt; has increased over the years, while Baltimore &lt;span id=&quot;pop-bm&quot; class=&quot;cedar-spark&quot;&gt;&lt;/span&gt; has been declining.&lt;/p&gt;
+
+&lt;style&gt;
+#pop-dc .mark-line path { stroke: rgb(0,200,0) !important ;}
+&lt;/style&gt;
+
+&lt;script type="text/javascript"&gt;
+  var data = [
+    {"attributes": {"date": "2000", "dc": 572046, "baltimore": 648654}},
+    {"attributes": {"date": "2010", "dc": 601767, "baltimore": 621317}},
+    {"attributes": {"date": "2013", "dc": 649111, "baltimore": 623404}},
+    {"attributes": {"date": "2014", "dc": 658893, "baltimore": 622793}}
+  ];
+
+  var chartdc = new Cedar({
+    "type": "sparkbar",
+    "dataset":{
+      "data":data,
+      "mappings":{
+        "x": {"field":"date","label":"Date"},
+        "y": {"field":"dc","label":"dc"}
       }
-    ]
-  };</code></pre>
+    }
+  });
+  chartdc.show({elementId: "#pop-dc", autolabels: false, height: 10, width: 20, renderer: "svg" });
 
-
-    <br />
-    <h5>Override default default chart color (#256e9d).</h5>
-    <span>The following sets the main color (update) to light green, and the hover style to dark green.</span>
-    <pre><code>  chart.override = {
-    &quot;marks&quot;: [
-      {&quot;properties&quot;: 
-        {
-          &quot;hover&quot;: {&quot;fill&quot;: {&quot;value&quot;: &quot;#17a086&quot;}},
-          &quot;update&quot;: {&quot;fill&quot;: {&quot;value&quot;: &quot;#7fcdbb&quot;}}
-        }
+  var chartbm = new Cedar({
+    "type": "sparkbar",
+    "dataset":{
+      "data":data,
+      "mappings":{
+        "x": {"field":"date","label":"Date"},
+        "y": {"field":"baltimore","label":"population"}
       }
-    ]
-  };</code></pre>
-
-
-    <br />
-    <h5>For for further chart defaults, inspect the template. Modify these defaults in chart.override.</h5>
-    <pre><code>  var tmpl = chart.specification.template;</code></pre>
-
-
-    <div id="chart-bar"></div>
-  </div>
-</div>
+    }
+  });
+  chartbm.show({elementId: "#pop-bm", autolabels: false, height: 10, width: 20, renderer: "svg" });
+&lt;/script&gt;
+</pre>
 
 <script>
 
-  //create a cedar chart, passing a url to a spec
-  var barChart = new Cedar({"type": "bar"});
-  //create the dataset w/ mappings
-  var dataset = {
-    "url":"http://services.arcgis.com/pmcEyn9tLWCoX7Dm/arcgis/rest/services/CA_Hospitals/FeatureServer/0",
-    "query": {
-      "groupByFieldsForStatistics": "Hospital_Ownership",
-      "outStatistics": [{
-        "statisticType": "sum", 
-        "onStatisticField": "Number_of_Patients", 
-        "outStatisticFieldName": "Number_of_Patients_SUM"
-      }]
-    },        
-    "mappings":{
-      "x": { "field": "Hospital_Ownership", "label": "Hospital Ownership" },
-      "y": { "field": "Number_of_Patients_SUM", "label": "Number of Patients" }
+  var data = [
+    {"attributes": {"date": "2000", "dc": 572046, "baltimore": 648654}},
+    {"attributes": {"date": "2010", "dc": 601767, "baltimore": 621317}},
+    {"attributes": {"date": "2013", "dc": 649111, "baltimore": 623404}},
+    {"attributes": {"date": "2014", "dc": 658893, "baltimore": 622793}}
+	];
+
+  var chartdc = new Cedar({
+  	"type": "sparkbar",
+    "dataset":{
+      "data":data,
+      "mappings":{
+        "x": {"field":"date","label":"Date"},
+        "y": {"field":"dc","label":"dc"}
+      }
     }
-  };
-
-  //assign to the chart
-  barChart.dataset = dataset;
-
-  //show the chart
-  barChart.show({
-    elementId: "#chart-bar"
   });
+  chartdc.show({elementId: "#pop-dc", autolabels: false, height: 10, width: 20, renderer: "svg" });
 
-  barChart.override = {
-    "height": 625,
-    "width": 850,
-    "marks": [
-      {"properties": 
-        {
-          "hover": {"fill": {"value": "#17a086"}},
-          "update": {"fill": {"value": "#7fcdbb"}}
-        }
+  var chartbm = new Cedar({
+  	"type": "sparkbar",
+    "dataset":{
+      "data":data,
+      "mappings":{
+        "x": {"field":"date","label":"Date"},
+        "y": {"field":"baltimore","label":"population"}
       }
-    ],
-    "axes": [
-      {
-        "titleOffset": 200
-      }
-    ]
-  };
+    }
+  });
+  chartbm.show({elementId: "#pop-bm", autolabels: false, height: 10, width: 20, renderer: "svg" });
+
 
 </script>
+
 	  <div class="wrap">
-	    <p><a href="http://github.com/esri/cedar/edit/master/site/source/pages/examples/style-overrides.hbs">Edit this sample on GitHub</a></p>
+	    <p><a href="http://github.com/esri/cedar/edit/master/site/source/pages/examples/sparkbar.hbs">Edit this sample on GitHub</a></p>
 	  </div>
 	</div>
 

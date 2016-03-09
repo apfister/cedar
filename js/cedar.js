@@ -282,7 +282,7 @@ Cedar.prototype.baseUrl = baseUrl;
  * 
  * ['bar', 'bar-horizontal', 'bubble', 'grouped', 'pie', 'scatter', 'sparkline', 'time'];
  */
-Cedar.prototype.chartTypes = ['bar', 'bar-horizontal', 'bubble', 'grouped', 'pie', 'scatter', 'sparkline', 'time'];
+Cedar.prototype.chartTypes = ['bar', 'bar-horizontal', 'bubble', 'grouped', 'pie', 'scatter', 'sparkline', 'ranking-bar', 'time'];
 
 /**
  * Inspect the current state of the object
@@ -475,7 +475,7 @@ Cedar.prototype.update = function(){
  */
 Cedar.prototype._renderSpec = function(spec){
   var self = this;
-  try{
+  // try{
     if(self.autolabels === true) {
         spec = self._placeLabels(spec);
         spec = self._placeaAxisTicks(spec);
@@ -505,10 +505,10 @@ Cedar.prototype._renderSpec = function(spec){
       }
 
     });
-  }
-  catch(ex){
-    throw(ex);
-  }
+  // }
+  // catch(ex){
+  //   throw(ex);
+  // }
 };
 
 /**
@@ -587,7 +587,9 @@ Cedar.prototype._placeaAxisTicks = function(spec) {
       var height = self.height || parseInt(d3.select(self._elementId).style('height'), 10) || 500;
       
       spec.axes[0].ticks = width / 100;
-      spec.axes[1].ticks = height / 30;
+      if(spec.axes[1] !== undefined) {
+        spec.axes[1].ticks = height / 30;
+      }
     } catch(ex) {
       throw(ex);
     }
@@ -900,7 +902,8 @@ Cedar.prototype._createTooltip = function(elem) {
   // TODO: remove inline CSS
   var style = document.createElement('style');
   style.type = 'text/css';
-  style.innerHTML = ".cedar-tooltip {background-color: #f36f22; padding: 3px 10px; color: #fff; margin: -30px 0 0 20px; position: absolute; z-index: 2000; font-size: 10px; } .cedar-tooltip .title {font-size: 13pt; font-weight: bold; } .cedar-tooltip .content {font-size: 10pt; } .cedar-tooltip:after {content: ''; position: absolute; border-style: solid; border-width: 15px 15px 15px 0; border-color: transparent #f36f22; display: block; width: 0; z-index: 1; left: -15px; top: 14px; }";
+  // style.innerHTML = ".cedar-tooltip {background-color: #f36f22; padding: 3px 10px; color: #fff; margin: -30px 0 0 20px; position: absolute; z-index: 2000; font-size: 10px; } .cedar-tooltip .title {font-size: 13pt; font-weight: bold; } .cedar-tooltip .content {font-size: 10pt; } .cedar-tooltip:after {content: ''; position: absolute; border-style: solid; border-width: 15px 15px 15px 0; border-color: transparent #f36f22; display: block; width: 0; z-index: 1; left: -15px; top: 14px; }";
+  style.innerHTML = ".cedar-tooltip {background-color: white; padding: 3px 10px; color: #333; margin: -30px 0 0 20px; position: absolute; z-index: 2000; font-size: 10px; border: 1px solid #BBB;} .cedar-tooltip .title {font-size: 13pt; font-weight: bold; } .cedar-tooltip .content {font-size: 10pt; } ";
   document.getElementsByTagName('head')[0].appendChild(style);
 
   tooltip_div = document.createElement('div');
