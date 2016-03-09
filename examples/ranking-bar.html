@@ -217,35 +217,73 @@
   var chart = new Cedar({"type": "ranking-bar"});
 
   //create the dataset w/ mappings
+  // var dataset = {
+  //   "url":"https://services.arcgis.com/uDTUpUPbk8X8mXwl/arcgis/rest/services/Public_Schools_in_Onondaga_County/FeatureServer/0",
+  //   "query": {
+  //     "groupByFieldsForStatistics": "Zip",
+  //     "outStatistics": [{
+  //       "statisticType": "sum", 
+  //       "onStatisticField": "Number_of", 
+  //       "outStatisticFieldName": "Number_of_SUM"
+  //     }]
+  //   },
+  //   "mappings":{
+  //     "x": {"field":"Zip","label":"ZIP Code"},
+  //     "y": {"field":"Number_of_SUM","label":"Total Students"}
+  //   }
+  // };
+  
+  var data = {"features": [{"attributes": {"value": 1, "rank" : 1, "name": "Sweden"} }, {"attributes": {"value": 9, "rank" : 4, "name": "Egypt"} }, {"attributes": {"value": 10, "rank" : 5, "name": "Pakistan"} }, {"attributes": {"value": 11, "rank" : 6, "name": "Turkey"} }, {"attributes": {"value": 20, "rank" : 100, "name": "Mongolia"} } ] };
+  
   var dataset = {
-    "url":"https://services.arcgis.com/uDTUpUPbk8X8mXwl/arcgis/rest/services/Public_Schools_in_Onondaga_County/FeatureServer/0",
-    "query": {
-      "groupByFieldsForStatistics": "Zip",
-      "outStatistics": [{
-        "statisticType": "sum", 
-        "onStatisticField": "Number_of", 
-        "outStatisticFieldName": "Number_of_SUM"
-      }]
-    },
+    data: data,
     "mappings":{
-      "y": {"field":"Zip","label":"ZIP Code"},
-      "x": {"field":"Number_of_SUM","label":"Total Students"}
+      "x": {"field":"value","label":"name"},
+      "y": {"field":"name","label":"value"}
     }
-  };
+  }
 
   //assign to the chart
   chart.dataset = dataset;
 
   chart.tooltip = {
     "id": "cedar-tooltip",
-    "title": "{Zip}",
-    "content": "{Number_of_SUM} students in the {Zip} zipcode."
+    "title": "{name}",
+    "content": "{name} has a value of {value}"
   };
   
+  var added = false;
+  chart.on('update-end', function () {
+    if (!added) {
+      added = true;
+      addXLabels();
+    }
+  });
+
   //show the chart
   chart.show({
     elementId: "#chart"
   });
+
+  function addXLabels() {
+    var label_marks = {
+      "type" : "text",
+      "from" : { "data" : "table" , "field" : "datum.attributes.rank"},
+      "properties" : {
+        "update" : {
+          "fill" : {"value" : "#333"},
+          "fontSize" : {"value":12},
+          "baseline" : {"value":"top"},
+          "y" : { "scale" : "y", "field" : "attributes.name", "offset": 0},
+          "text" : { "field" : "attributes.rank" }
+          ,"x" : { "offset" : -100}
+        }        
+      }
+    };
+    var new_marks = chart.specification.template.marks.concat(label_marks);
+    chart.specification.template.marks = new_marks;
+    chart.update();
+  }
 
 
 

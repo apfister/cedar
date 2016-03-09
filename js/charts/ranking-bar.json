@@ -54,7 +54,7 @@
           "labels": {
             "fill": {"value": "#999"},
             "angle": {"value": 0},
-            "baseline": {"value": "middle"}
+            "baseline": {"value": "top"}
           }
         }
       }      
@@ -70,7 +70,7 @@
         "from": {"data": "table"},
         "properties": {
           "enter": {
-            "height": {"band": true, "offset": -1, "scale": "y"},
+            "height": {"value" : 10, "offset" : -1},
             "y": {"scale": "y", "field": "attributes.{y.field}"},
             "x2": {"scale": "x", "field": "attributes.{x.field}"},
             "x": {"scale": "x", "value": 0 }
