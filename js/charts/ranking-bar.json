@@ -70,7 +70,7 @@
         "from": {"data": "table"},
         "properties": {
           "enter": {
-            "height": {"value" : 10, "offset" : -1},
+            "height": {"band": true, "offset": -60, "scale": "y"},
             "y": {"scale": "y", "field": "attributes.{y.field}"},
             "x2": {"scale": "x", "field": "attributes.{x.field}"},
             "x": {"scale": "x", "value": 0 }
