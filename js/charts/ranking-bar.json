@@ -54,7 +54,8 @@
           "labels": {
             "fill": {"value": "#999"},
             "angle": {"value": 0},
-            "baseline": {"value": "top"}
+            "baseline": {"value": "top"},
+            "dy": {"value" : -38}
           }
         }
       }      
