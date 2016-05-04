@@ -97,9 +97,10 @@
       <li><a href="../../../cedar/examples/simple-pie.html">Pie Chart</a></li>
       <li><a href="../../../cedar/examples/multiple.html">Multiple Charts</a></li>
       <li><a href="../../../cedar/examples/sparkline.html">Sparkline</a></li>
-      <li><a href="../../../cedar/examples/ranking-bar.html">Ranking Bar</a></li>
       <li><a href="../../../cedar/examples/time.html">Timeline</a></li>
       <li><a href="../../../cedar/examples/time-dots.html">Time facets</a></li>
+      <li><a href="../../../cedar/examples/time-trendline.html">Time with Trendline</a></li>
+      <li><a href="../../../cedar/examples/time-trendline2.html">Time with Trendline 2</a></li>
       <li><a href="../../../cedar/examples/map.html">Map Chart</a></li>
     </ul>
   </nav>
@@ -175,8 +176,8 @@
     <span class="string">"query"</span>: {
       <span class="string">"groupByFieldsForStatistics"</span>: <span class="string">"Zip"</span>,
       <span class="string">"outStatistics"</span>: [{
-        <span class="string">"statisticType"</span>: <span class="string">"sum"</span>, 
-        <span class="string">"onStatisticField"</span>: <span class="string">"Number_of"</span>, 
+        <span class="string">"statisticType"</span>: <span class="string">"sum"</span>,
+        <span class="string">"onStatisticField"</span>: <span class="string">"Number_of"</span>,
         <span class="string">"outStatisticFieldName"</span>: <span class="string">"Number_of_SUM"</span>
       }]
     },
@@ -192,12 +193,12 @@
   <span class="comment">// fix placement of axes labels</span>
   chart.override = {
     <span class="string">"axes"</span>: [
-      { 
+      {
         <span class="string">"titleOffset"</span>: <span class="number">25</span>,
-        <span class="string">"title"</span>: <span class="string">"Total Number of Students"</span> 
+        <span class="string">"title"</span>: <span class="string">"Total Number of Students"</span>
       },
-      { 
-        <span class="string">"titleOffset"</span>: <span class="number">50</span> 
+      {
+        <span class="string">"titleOffset"</span>: <span class="number">50</span>
       }
     ]
   };
@@ -219,8 +220,8 @@
     "query": {
       "groupByFieldsForStatistics": "Zip",
       "outStatistics": [{
-        "statisticType": "sum", 
-        "onStatisticField": "Number_of", 
+        "statisticType": "sum",
+        "onStatisticField": "Number_of",
         "outStatisticFieldName": "Number_of_SUM"
       }]
     },
@@ -236,12 +237,12 @@
   // fix placement of axes labels
   chart.override = {
     "axes": [
-      { 
+      {
         "titleOffset": 25,
-        "title": "Total Number of Students" 
+        "title": "Total Number of Students"
       },
-      { 
-        "titleOffset": 50 
+      {
+        "titleOffset": 50
       }
     ]
   };
@@ -251,7 +252,7 @@
     "title": "{Zip}",
     "content": "{Number_of_SUM} students in the {Zip} zipcode."
   };
-  
+
   //show the chart
   chart.show({
     elementId: "#chart"
@@ -260,6 +261,7 @@
 
 
 </script>
+
 	  <div class="wrap">
 	    <p><a href="http://github.com/esri/cedar/edit/master/site/source/pages/examples/horizontal.hbs">Edit this sample on GitHub</a></p>
 	  </div>

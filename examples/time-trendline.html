@@ -8,7 +8,7 @@
   <meta charset="utf-8">
 
   
-    <title>Sparkbar | Esri Cedar</title>
+    <title>Time with trendline chart | Esri Cedar</title>
   
 
   
@@ -97,9 +97,10 @@
       <li><a href="../../../cedar/examples/simple-pie.html">Pie Chart</a></li>
       <li><a href="../../../cedar/examples/multiple.html">Multiple Charts</a></li>
       <li><a href="../../../cedar/examples/sparkline.html">Sparkline</a></li>
-      <li><a href="../../../cedar/examples/ranking-bar.html">Ranking Bar</a></li>
       <li><a href="../../../cedar/examples/time.html">Timeline</a></li>
       <li><a href="../../../cedar/examples/time-dots.html">Time facets</a></li>
+      <li><a href="../../../cedar/examples/time-trendline.html">Time with Trendline</a></li>
+      <li><a href="../../../cedar/examples/time-trendline2.html">Time with Trendline 2</a></li>
       <li><a href="../../../cedar/examples/map.html">Map Chart</a></li>
     </ul>
   </nav>
@@ -160,98 +161,156 @@
 
 	</div>	
 	<div class="col-lg-9">
-   	  <h2 class="page-header">Sparkbar</h2>
+   	  <h2 class="page-header">Time with trendline chart</h2>
 	  
 
-<style type="text/css">
-	.cedar-spark .vega { display: inline; padding: 0; margin: 0;}
-	#pop-dc .mark-line path { stroke: rgb(0,200,0) !important ;}
-</style>
 
-<h2>Example</h2>
+<h1>Time with Trendline Example</h1>
 
-<p style="border: 1px solid #888; padding: 30px; margin: 20px">The population of DC <span id="pop-dc" class="cedar-spark"></span> has increased over the years, while Baltimore <span id="pop-bm" class="cedar-spark"></span> has been declining.</p>
 
-<h2>Code</h2>
+<div id="chart"></div>
+
 <pre class="prettyprint">
-&lt;p&gt;The population of DC &lt;span id=&quot;pop-dc&quot; class=&quot;cedar-spark&quot;&gt;&lt;/span&gt; has increased over the years, while Baltimore &lt;span id=&quot;pop-bm&quot; class=&quot;cedar-spark&quot;&gt;&lt;/span&gt; has been declining.&lt;/p&gt;
 
-&lt;style&gt;
-#pop-dc .mark-line path { stroke: rgb(0,200,0) !important ;}
-&lt;/style&gt;
+  var chart = new Cedar({"type":"time-trendline"});
 
-&lt;script type="text/javascript"&gt;
-  var data = [
-    {"attributes": {"date": "2000", "dc": 572046, "baltimore": 648654}},
-    {"attributes": {"date": "2010", "dc": 601767, "baltimore": 621317}},
-    {"attributes": {"date": "2013", "dc": 649111, "baltimore": 623404}},
-    {"attributes": {"date": "2014", "dc": 658893, "baltimore": 622793}}
-  ];
-
-  var chartdc = new Cedar({
-    "type": "sparkbar",
-    "dataset":{
-      "data":data,
-      "mappings":{
-        "x": {"field":"date","label":"Date"},
-        "y": {"field":"dc","label":"dc"}
-      }
+  var dataset = {
+    "url":"http://services6.arcgis.com/Y3k193RFrcECJ8xA/arcgis/rest/services/Observed_Temperature/FeatureServer/0",
+    "mappings":{
+      "time": {"field":"year", "label": "Year"},
+      "value": {"field":"annual", "label": "Annual Air Temperature"},
+      "trendline": {"field": "trendline", label: ""},
+      "sort": "year"
     }
-  });
-  chartdc.show({elementId: "#pop-dc", autolabels: false, height: 10, width: 20, renderer: "svg" });
+  };
 
-  var chartbm = new Cedar({
-    "type": "sparkbar",
-    "dataset":{
-      "data":data,
-      "mappings":{
-        "x": {"field":"date","label":"Date"},
-        "y": {"field":"baltimore","label":"population"}
+  chart.dataset = dataset;
+  chart.show({
+    elementId: "#chart"
+  }); 
+
+  chart.override = {
+    axes: [
+      {
+        "type" : "x",
+        "scale" : "x",
+        "values" : [1900,1920,1940,1960,1980,2000,2015]
+      },
+      {
+        "type" : "y",
+        "scale" : "y",
+        "grid" : true,
+        "format": "0d",
+        "values" : [47,48,49,50,51,52,53]
       }
-    }
-  });
-  chartbm.show({elementId: "#pop-bm", autolabels: false, height: 10, width: 20, renderer: "svg" });
-&lt;/script&gt;
+    ],
+    scales: [
+      {
+        "name": "x",
+        "type": "ordinal",
+        "range": "width",
+        "nice": "year",
+        "zero": false
+      },
+      {
+        "name" : "y",
+        "zero" : false,
+        "nice" : true
+      }
+    ],
+    marks: [
+      {
+        "properties": {
+          "enter" : {
+            "stroke": {"value": "#e05757"},
+            "strokeWidth": {"value": 3}
+          }
+        }
+      },
+      {
+        "properties": {
+          "enter" : {
+            "stroke": {"value": "#000000"},
+            "strokeWidth": {"value": 3}
+          }
+        }
+      }
+    ]
+  }; 
 </pre>
 
 <script>
+  
+  var chart = new Cedar({"type":"time-trendline"});
 
-  var data = [
-    {"attributes": {"date": "2000", "dc": 572046, "baltimore": 648654}},
-    {"attributes": {"date": "2010", "dc": 601767, "baltimore": 621317}},
-    {"attributes": {"date": "2013", "dc": 649111, "baltimore": 623404}},
-    {"attributes": {"date": "2014", "dc": 658893, "baltimore": 622793}}
-	];
-
-  var chartdc = new Cedar({
-  	"type": "sparkbar",
-    "dataset":{
-      "data":data,
-      "mappings":{
-        "x": {"field":"date","label":"Date"},
-        "y": {"field":"dc","label":"dc"}
-      }
+  var dataset = {
+    "url":"http://services6.arcgis.com/Y3k193RFrcECJ8xA/arcgis/rest/services/Observed_Temperature/FeatureServer/0",
+    "mappings":{
+      "time": {"field":"year", "label": "Year"},
+      "value": {"field":"annual", "label": "Annual Air Temperature"},
+      "trendline": {"field": "trendline", label: ""},
+      "sort": "year"
     }
-  });
-  chartdc.show({elementId: "#pop-dc", autolabels: false, height: 10, width: 20, renderer: "svg" });
+  };
 
-  var chartbm = new Cedar({
-  	"type": "sparkbar",
-    "dataset":{
-      "data":data,
-      "mappings":{
-        "x": {"field":"date","label":"Date"},
-        "y": {"field":"baltimore","label":"population"}
+  chart.dataset = dataset;
+  chart.show({
+    elementId: "#chart"
+  }); 
+
+  chart.override = {
+    axes: [
+      {
+        "type" : "x",
+        "scale" : "x",
+        "values" : [1900,1920,1940,1960,1980,2000,2015]
+      },
+      {
+        "type" : "y",
+        "scale" : "y",
+        "grid" : true,
+        "format": "0d",
+        "values" : [47,48,49,50,51,52,53]
       }
-    }
-  });
-  chartbm.show({elementId: "#pop-bm", autolabels: false, height: 10, width: 20, renderer: "svg" });
+    ],
+    scales: [
+      {
+        "name": "x",
+        "type": "ordinal",
+        "range": "width",
+        "nice": "year",
+        "zero": false
+      },
+      {
+        "name" : "y",
+        "zero" : false,
+        "nice" : true
+      }
+    ],
+    marks: [
+      {
+        "properties": {
+          "enter" : {
+            "stroke": {"value": "#e05757"},
+            "strokeWidth": {"value": 3}
+          }
+        }
+      },
+      {
+        "properties": {
+          "enter" : {
+            "stroke": {"value": "#000000"},
+            "strokeWidth": {"value": 3}
+          }
+        }
+      }
+    ]
+  };
 
 
 </script>
-
 	  <div class="wrap">
-	    <p><a href="http://github.com/esri/cedar/edit/master/site/source/pages/examples/sparkbar.hbs">Edit this sample on GitHub</a></p>
+	    <p><a href="http://github.com/esri/cedar/edit/master/site/source/pages/examples/time-trendline.hbs">Edit this sample on GitHub</a></p>
 	  </div>
 	</div>
 

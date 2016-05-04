@@ -8,7 +8,7 @@
   <meta charset="utf-8">
 
   
-    <title>Custom Chart - Time Dots | Esri Cedar</title>
+    <title>Time with trendline chart | Esri Cedar</title>
   
 
   
@@ -161,59 +161,156 @@
 
 	</div>	
 	<div class="col-lg-9">
-   	  <h2 class="page-header">Custom Chart - Time Dots</h2>
+   	  <h2 class="page-header">Time with trendline chart</h2>
 	  
 
 
-<h1>Time Dots Example</h1>
+<h1>Time with Trendline Example</h1>
+
 
 <div id="chart"></div>
 
-<pre><code class="language-js">  <span class="comment">// NOTE: this is not one of the standard chart types</span>
-  <span class="comment">// so we pass a url to the specification JSON</span>
-  <span class="keyword">var</span> chart = <span class="keyword">new</span> Cedar({<span class="string">"specification"</span>:<span class="string">"../../../cedar/data/templates/time-dots.json"</span>});
+<pre class="prettyprint">
 
-  <span class="keyword">var</span> dataset = {
-    <span class="string">"url"</span>:<span class="string">"http://maps2.dcgis.dc.gov/dcgis/rest/services/FEEDS/CDW_Feeds/MapServer/8"</span>,
-    <span class="string">"mappings"</span>:{
-      <span class="string">"time"</span>:   {<span class="string">"field"</span>:<span class="string">"REPORTDATETIME"</span>},
-      <span class="string">"aspect"</span>: {<span class="string">"field"</span>:<span class="string">"OFFENSE"</span>},
-      <span class="string">"facet"</span>:  {<span class="string">"field"</span>:<span class="string">"WARD"</span>},
-      <span class="string">"color"</span>:  {<span class="string">"field"</span>:<span class="string">"SHIFT"</span>}
-    }
-  };
-  chart.dataset = dataset;
-
-  chart.show({
-    <span class="string">"elementId"</span>: <span class="string">"#chart"</span>,
-    height: <span class="number">1000</span>
-  });</code></pre>
-
-
-<script>
-  // NOTE: this is not one of the standard chart types
-  // so we pass a url to the specification JSON
-  var chart = new Cedar({"specification":"../../../cedar/data/templates/time-dots.json"});
+  var chart = new Cedar({"type":"time-trendline"});
 
   var dataset = {
-    "url":"http://maps2.dcgis.dc.gov/dcgis/rest/services/FEEDS/CDW_Feeds/MapServer/8",
+    "url":"http://services6.arcgis.com/Y3k193RFrcECJ8xA/arcgis/rest/services/Observed_Temperature/FeatureServer/0",
     "mappings":{
-      "time":   {"field":"REPORTDATETIME"},
-      "aspect": {"field":"OFFENSE"},
-      "facet":  {"field":"WARD"},
-      "color":  {"field":"SHIFT"}
+      "time": {"field":"year", "label": "Year"},
+      "value": {"field":"annual", "label": "Annual Air Temperature"},
+      "trendline": {"field": "trendline", label: ""},
+      "sort": "year"
     }
   };
-  chart.dataset = dataset;
 
+  chart.dataset = dataset;
   chart.show({
-    "elementId": "#chart",
-    height: 1000
-  });
+    elementId: "#chart"
+  }); 
+
+  chart.override ={
+      axes: [
+        {
+          "type" : "x",
+          "scale" : "x",
+          "values" : [1900,1920,1940,1960,1980,2000,2015]
+        },
+        {
+          "type" : "y",
+          "scale" : "y",
+          "grid" : true,
+          "format": "0d",
+          "values" : [20,30,40,50,60]
+        }
+      ],
+      scales: [
+        {
+          "name": "x",
+          "type": "ordinal",
+          "range": "width",
+          "nice": "year",
+          "zero": false
+        },
+        {
+          "name" : "y",
+          "zero" : false,
+          "nice" : true
+        }
+      ],
+      marks: [
+        {
+          "properties": {
+            "enter" : {
+              "stroke": {"value": "#008ec4"},
+              "strokeWidth": {"value": 3}
+            }
+          }
+        },
+        {
+          "properties": {
+            "enter" : {
+              "stroke": {"value": "#000000"},
+              "strokeWidth": {"value": 3}
+            }
+          }
+        }
+      ]
+    };
+</pre>
+
+<script>
+  
+  var chart = new Cedar({"type":"time-trendline"});
+
+  var dataset = {
+    "url":"http://services6.arcgis.com/Y3k193RFrcECJ8xA/arcgis/rest/services/Observed_Precipitation/FeatureServer/0",
+    "mappings":{
+      "time": {"field":"year", "label": "Year"},
+      "value": {"field":"annual", "label": "Total Precipitation"},
+      "trendline": {"field": "trendline", label: ""},
+      "sort": "year"
+    }
+  };
+
+  chart.dataset = dataset;
+  chart.show({
+    elementId: "#chart"
+  }); 
+
+  chart.override = {
+    axes: [
+      {
+        "type" : "x",
+        "scale" : "x",
+        "values" : [1900,1920,1940,1960,1980,2000,2015]
+      },
+      {
+        "type" : "y",
+        "scale" : "y",
+        "grid" : true,
+        "format": "0d",
+        "values" : [20,30,40,50,60]
+      }
+    ],
+    scales: [
+      {
+        "name": "x",
+        "type": "ordinal",
+        "range": "width",
+        "nice": "year",
+        "zero": false
+      },
+      {
+        "name" : "y",
+        "zero" : false,
+        "nice" : true
+      }
+    ],
+    marks: [
+      {
+        "properties": {
+          "enter" : {
+            "stroke": {"value": "#008ec4"},
+            "strokeWidth": {"value": 3}
+          }
+        }
+      },
+      {
+        "properties": {
+          "enter" : {
+            "stroke": {"value": "#000000"},
+            "strokeWidth": {"value": 3}
+          }
+        }
+      }
+    ]
+  };
+
 
 </script>
 	  <div class="wrap">
-	    <p><a href="http://github.com/esri/cedar/edit/master/site/source/pages/examples/time-dots.hbs">Edit this sample on GitHub</a></p>
+	    <p><a href="http://github.com/esri/cedar/edit/master/site/source/pages/examples/time-trendline2.hbs">Edit this sample on GitHub</a></p>
 	  </div>
 	</div>
 
