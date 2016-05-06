@@ -100,7 +100,6 @@
       <li><a href="../../../cedar/examples/time.html">Timeline</a></li>
       <li><a href="../../../cedar/examples/time-dots.html">Time facets</a></li>
       <li><a href="../../../cedar/examples/time-trendline.html">Time with Trendline</a></li>
-      <li><a href="../../../cedar/examples/time-trendline2.html">Time with Trendline 2</a></li>
       <li><a href="../../../cedar/examples/map.html">Map Chart</a></li>
     </ul>
   </nav>
@@ -175,10 +174,56 @@
   var chart = new Cedar({"type":"time-trendline"});
 
   var dataset = {
-    "url":"http://services6.arcgis.com/Y3k193RFrcECJ8xA/arcgis/rest/services/Observed_Temperature/FeatureServer/0",
+    "url":"http://services6.arcgis.com/Y3k193RFrcECJ8xA/arcgis/rest/services/Observed_Precipitation/FeatureServer/0",
+    "query" : {
+      "where" : "year > 2000"
+    },
     "mappings":{
       "time": {"field":"year", "label": "Year"},
-      "value": {"field":"annual", "label": "Annual Air Temperature"},
+      "value": {"field":"annual", "label": "Total Precipitation"},
+      "trendline": {"field": "trendline", label: ""},
+      "sort": "year"
+    }
+  };
+
+  chart.dataset = dataset;
+  chart.show({
+    elementId: "#chart"
+  }); 
+
+  chart.override = {
+    scales: [
+      {
+        "name": "x",
+        "type": "ordinal",
+        "range": "width",
+        "nice": "year",
+        "zero": false
+      },
+      {
+        "zero" : false
+      }
+    ]
+  };
+
+</pre>
+
+<hr>
+
+<h1>Time with Trendline Example with more Overrides</h1>
+
+
+<div id="chart-override"></div>
+
+<pre class="prettyprint">
+
+  var chart = new Cedar({"type":"time-trendline"});
+
+  var dataset = {
+    "url":"http://services6.arcgis.com/Y3k193RFrcECJ8xA/arcgis/rest/services/Observed_Precipitation/FeatureServer/0",
+    "mappings":{
+      "time": {"field":"year", "label": "Year"},
+      "value": {"field":"annual", "label": "Total Precipitation"},
       "trendline": {"field": "trendline", label: ""},
       "sort": "year"
     }
@@ -201,7 +246,7 @@
         "scale" : "y",
         "grid" : true,
         "format": "0d",
-        "values" : [47,48,49,50,51,52,53]
+        "values" : [20,30,40,50,60]
       }
     ],
     scales: [
@@ -215,14 +260,15 @@
       {
         "name" : "y",
         "zero" : false,
-        "nice" : true
+        "nice" : true,
+        "domainMin" : 20
       }
     ],
     marks: [
       {
         "properties": {
           "enter" : {
-            "stroke": {"value": "#e05757"},
+            "stroke": {"value": "#008ec4"},
             "strokeWidth": {"value": 3}
           }
         }
@@ -236,7 +282,7 @@
         }
       }
     ]
-  }; 
+  };
 </pre>
 
 <script>
@@ -244,10 +290,13 @@
   var chart = new Cedar({"type":"time-trendline"});
 
   var dataset = {
-    "url":"http://services6.arcgis.com/Y3k193RFrcECJ8xA/arcgis/rest/services/Observed_Temperature/FeatureServer/0",
+    "url":"http://services6.arcgis.com/Y3k193RFrcECJ8xA/arcgis/rest/services/Observed_Precipitation/FeatureServer/0",
+    "query" : {
+      "where" : "year > 2000"
+    },
     "mappings":{
       "time": {"field":"year", "label": "Year"},
-      "value": {"field":"annual", "label": "Annual Air Temperature"},
+      "value": {"field":"annual", "label": "Total Precipitation"},
       "trendline": {"field": "trendline", label: ""},
       "sort": "year"
     }
@@ -259,6 +308,40 @@
   }); 
 
   chart.override = {
+    scales: [
+      {
+        "name": "x",
+        "type": "ordinal",
+        "range": "width",
+        "nice": "year",
+        "zero": false
+      },
+      {
+        "zero" : false
+      }
+    ]
+  };
+
+  // chart with overrides
+
+  var chart_override = new Cedar({"type":"time-trendline"});
+
+  var dataset = {
+    "url":"http://services6.arcgis.com/Y3k193RFrcECJ8xA/arcgis/rest/services/Observed_Precipitation/FeatureServer/0",
+    "mappings":{
+      "time": {"field":"year", "label": "Year"},
+      "value": {"field":"annual", "label": "Total Precipitation"},
+      "trendline": {"field": "trendline", label: ""},
+      "sort": "year"
+    }
+  };
+
+  chart_override.dataset = dataset;
+  chart_override.show({
+    elementId: "#chart-override"
+  }); 
+
+  chart_override.override = {
     axes: [
       {
         "type" : "x",
@@ -270,7 +353,7 @@
         "scale" : "y",
         "grid" : true,
         "format": "0d",
-        "values" : [47,48,49,50,51,52,53]
+        "values" : [20,30,40,50,60]
       }
     ],
     scales: [
@@ -284,14 +367,15 @@
       {
         "name" : "y",
         "zero" : false,
-        "nice" : true
+        "nice" : true,
+        "domainMin" : 20
       }
     ],
     marks: [
       {
         "properties": {
           "enter" : {
-            "stroke": {"value": "#e05757"},
+            "stroke": {"value": "#008ec4"},
             "strokeWidth": {"value": 3}
           }
         }
